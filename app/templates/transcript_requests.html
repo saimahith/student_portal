@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>📄 Transcript Requests</h2>
+
+  {% if requests %}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Reason</th>
+          <th>Delivery</th>
+          <th>Status</th>
+          <th>Requested At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in requests %}
+        <tr>
+          <td>{{ r.student.username }}</td>
+          <td>{{ r.reason }}</td>
+          <td>{{ r.delivery_method }}</td>
+          <td>{{ r.status }}</td>
+          <td>{{ r.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>
+            {% if r.status == 'pending' %}
+              <a href="{{ url_for('main.approve_request', request_id=r.id) }}" class="btn btn-success btn-sm">Approve</a>
+              <a href="{{ url_for('main.reject_request', request_id=r.id) }}" class="btn btn-danger btn-sm">Reject</a>
+            {% else %}
+              <em>No actions</em>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No transcript requests found.</p>
+  {% endif %}
+{% endblock %}

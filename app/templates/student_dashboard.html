@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>🎓 Student Dashboard</h2>
-<p>Welcome, {{ current_user.username }}!</p>
+  <h2>🎓 Student Dashboard</h2>
+  <p>Welcome, {{ current_user.username }}!</p>
+
+  <div class="mt-4">
+    <a href="{{ url_for('main.edit_profile') }}" class="btn btn-primary me-2">📝 Edit Profile</a>
+    <a href="{{ url_for('main.request_transcript') }}" class="btn btn-secondary">📄 Request Transcript</a>
+  </div>
 {% endblock %}
